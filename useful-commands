@@ -1,0 +1,68 @@
+Here’s a pure-CLI sequence using GitHub CLI (gh) to create a PR and merge it.
+
+Replace placeholders like feature/my-change, commit messages, and branch names as needed.
+
+Install & login (first time only)
+
+sudo apt update && sudo apt install -y gh
+gh auth login
+
+
+From your repo, update main
+
+git checkout main
+git pull origin main
+
+
+Create a feature branch
+
+git checkout -b feature/my-change
+
+
+Make changes (example creates/edits a file)
+
+nano key_value_pairs.py
+
+
+Stage & commit
+
+git add -A
+git commit -m "Add key_value_pairs.py"
+
+
+Push the branch to GitHub
+
+git push -u origin feature/my-change
+
+
+Create the PR (into main)
+
+gh pr create --base main --head feature/my-change --title "Add key_value_pairs.py" --body "Adds key-value example file."
+
+
+(Optional) Check PR status
+
+gh pr status
+
+
+Merge the PR (pick ONE style)
+
+# Merge commit:
+gh pr merge feature/my-change --merge
+
+# OR squash & merge (common):
+gh pr merge feature/my-change --squash --delete-branch
+
+# OR rebase & merge:
+gh pr merge feature/my-change --rebase --delete-branch
+
+
+Sync local main
+
+git checkout main
+git pull origin main
+
+
+(Optional) Clean up local branch
+
+git branch -d feature/my-change
